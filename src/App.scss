@@ -29,6 +29,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 .content-container {
   width: 100%;
   min-height: 80vh;
@@ -69,7 +70,7 @@
 }
 
 .tab-leagues {
-  border-right: 5px solid rgba(204, 204, 204, 0.8);
+  border-right: 5px solid #cccc;
 }
 
 .footer {
@@ -83,54 +84,68 @@
   text-align: center;
 }
 
-.leagues-container h2 {
-  text-align: center;
-}
-.leagues-container ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
-.leagues-container ul li {
-  margin: 0 10px;
-}
-.leagues-container ul button {
-  padding: 10px 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-.leagues-container ul button:hover {
-  background-color: #ddd;
+// Add this style to your main SCSS file or create a new one
+
+.leagues-container {
+  h2 {
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+
+    li {
+      margin: 0 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
 }
 
 .content-container {
   padding: 20px;
+
+  h2 {
+    text-align: center;
+  }
+
+  .teams-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .team {
+      margin: 10px;
+      text-align: center;
+
+      .team-logo {
+        max-width: 100px; // Adjust the size as needed
+        max-height: 100px; // Adjust the size as needed
+      }
+
+      .no-logo {
+        display: block;
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      .team-name {
+        margin-top: 5px;
+      }
+    }
+  }
 }
-.content-container h2 {
-  text-align: center;
-}
-.content-container .teams-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.content-container .teams-container .team {
-  margin: 10px;
-  text-align: center;
-}
-.content-container .teams-container .team .team-logo {
-  max-width: 100px;
-  max-height: 100px;
-}
-.content-container .teams-container .team .no-logo {
-  display: block;
-  margin-top: 10px;
-  font-style: italic;
-}
-.content-container .teams-container .team .team-name {
-  margin-top: 5px;
-}/*# sourceMappingURL=App.css.map */
