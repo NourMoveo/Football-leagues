@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Leagues from './Leagues';
 import { fetchTeamsByLeague } from '../api';
+import '../App.scss';
 
 interface Team {
   strTeam: string;
