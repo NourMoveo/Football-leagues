@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 // Base URL for the sports database API
-const BASE_URL = 'https://www.thesportsdb.com/api/v1/json/3';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 // Function for fetching teams by league
 export const fetchTeamsByLeague = async (league: string): Promise<AxiosResponse<any>> => {
