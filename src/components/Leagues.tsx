@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { fetchAllLeagues } from '../api';
-import '../App.scss';
-interface Team {
+import React, { useState, useEffect } from "react";
+import { fetchTop5Leagues } from "../api";
+
+interface League {
   strLeague: string;
 }
 
@@ -12,26 +12,34 @@ interface LeaguesProps {
 const Leagues: React.FC<LeaguesProps> = ({ onLeagueClick }) => {
   // State to store the fetched leagues
   const [leagues, setLeagues] = useState<string[]>([]);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
 
   useEffect(() => {
-    // Function to fetch all leagues when the component mounts
+    // Function to fetch top 5 leagues when the component mounts
     const fetchLeagues = async () => {
-      try {
-        // Fetch all leagues from the API
-        const response = await fetchAllLeagues();
-        const fetchedLeagues: Team[] = response.data.leagues || [];
+      // Set loading timeout to 5 seconds
+      const loadingTimeout = setTimeout(() => {
+        setShowNotification(true);
+      }, 5000);
 
-        // Filter out 'No League Soccer' and get the top 5 leagues
-        const filteredLeagues: string[] = fetchedLeagues
-          .filter((league) => league.strLeague !== 'No League Soccer')
-          .slice(0, 5)
-          .map((league) => league.strLeague);
+      try {
+        // Fetch top 5 leagues from the API
+        const response = await fetchTop5Leagues();
+        const fetchedLeagues: League[] = response.data.leagues || [];
+
+        // Extract league names from the fetched leagues
+        const leagueNames: string[] = fetchedLeagues.map(
+          (league) => league.strLeague
+        );
 
         // Set the fetched leagues in state
-        setLeagues(filteredLeagues);
+        setLeagues(leagueNames);
       } catch (error: any) {
         // Handle errors and log a message
-        console.error('Error fetching leagues:', error.message);
+        console.error("Error fetching leagues:", error.message);
+      } finally {
+        // Clear loading timeout
+        clearTimeout(loadingTimeout);
       }
     };
 
@@ -46,7 +54,7 @@ const Leagues: React.FC<LeaguesProps> = ({ onLeagueClick }) => {
   };
 
   return (
-    <div className='leagues-container'>
+    <div className="leagues-container">
       {/* Heading for leagues */}
       <h2>Leagues</h2>
 
@@ -60,6 +68,11 @@ const Leagues: React.FC<LeaguesProps> = ({ onLeagueClick }) => {
           </li>
         ))}
       </ul>
+
+      {/* Show notification if loading takes longer than 5 seconds */}
+      {showNotification && (
+        <p>Data is taking longer to load. Please be patient.</p>
+      )}
     </div>
   );
 };
