@@ -1,4 +1,4 @@
-```markdown
+
 # React Sports Teams App ⚽️🏆
 
 ## 📌 Description
